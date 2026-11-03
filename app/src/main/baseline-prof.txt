@@ -1,0 +1,3 @@
+# Compile all of CoverIt ahead of time when installed, so the first runs are as smooth as later ones.
+HSPLcom/coverit/app/**->**(**)**
+Lcom/coverit/app/**;

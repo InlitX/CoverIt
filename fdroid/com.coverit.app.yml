@@ -1,0 +1,24 @@
+Categories:
+  - Security
+License: GPL-3.0-or-later
+AuthorName: InlitX
+WebSite: https://github.com/InlitX/CoverIt
+SourceCode: https://github.com/InlitX/CoverIt
+IssueTracker: https://github.com/InlitX/CoverIt/issues
+Donate: https://ko-fi.com/inlitx
+
+RepoType: git
+Repo: https://github.com/InlitX/CoverIt.git
+
+Builds:
+  - versionName: 0.1.0-beta
+    versionCode: 1
+    commit: v0.1.0-beta
+    subdir: app
+    gradle:
+      - yes
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags
+CurrentVersion: 0.1.0-beta
+CurrentVersionCode: 1

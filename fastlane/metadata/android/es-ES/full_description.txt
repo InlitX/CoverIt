@@ -1,0 +1,26 @@
+<p>CoverIt tapa los datos personales de tus documentos y fotos antes de compartirlos. Todo pasa en tu móvil: la app no tiene permiso de internet.</p>
+
+<p><b>Encuentra los datos por ti</b></p>
+<ul>
+<li>Nombres, números de documento y de cuenta, IBAN, tarjetas, emails, teléfonos de cualquier país, direcciones, fechas de nacimiento, enlaces a perfiles, caras y códigos QR o de barras.</li>
+<li>Lee el texto de fotos y páginas escaneadas en el propio móvil (OCR).</li>
+<li>Enséñale tus propios formatos, como los códigos internos de una empresa.</li>
+</ul>
+
+<p><b>Tú decides</b></p>
+<ul>
+<li>Revisa cada dato uno a uno, ampliado, y tápalo o déjalo visible.</li>
+<li>Tapa a mano con el lazo, un rectángulo o un pincel. Tapa una página entera.</li>
+<li>Cuatro estilos: negro, pixelar, difuminar o etiqueta (una caja negra que dice qué había, como [NOMBRE]).</li>
+<li>Deshaz y rehaz cada paso. Vuelve a editar lo tapado más tarde.</li>
+</ul>
+
+<p><b>Borrado de verdad</b></p>
+<ul>
+<li>Las páginas PDF con algo tapado se reconstruyen: el texto oculto ya no existe en el archivo.</li>
+<li>Los archivos de Word, Excel, PowerPoint y LibreOffice conservan su formato, con el texto tapado sustituido.</li>
+<li>Se quitan los datos ocultos: autor, comentarios, control de cambios, ubicación GPS y datos de la cámara.</li>
+<li>La copia limpia se vuelve a leer para comprobar que no queda nada tapado.</li>
+</ul>
+
+<p>Abre PDF, DOCX, XLSX, PPTX, ODT, ODS, ODP, TXT, CSV, MD y fotos (JPEG, PNG, WebP, HEIC, AVIF, GIF, BMP). Gratis y de código abierto, sin anuncios y sin cuenta.</p>

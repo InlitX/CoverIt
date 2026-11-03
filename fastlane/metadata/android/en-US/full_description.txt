@@ -1,0 +1,26 @@
+<p>CoverIt hides personal data in your documents and photos before you share them. Everything happens on your phone: the app has no internet permission at all.</p>
+
+<p><b>It finds the data for you</b></p>
+<ul>
+<li>Names, ID and account numbers, IBAN, card numbers, emails, phone numbers from any country, addresses, dates of birth, profile links, faces and QR or bar codes.</li>
+<li>Text in photos and scanned pages is read on the device (OCR).</li>
+<li>Teach it your own formats, such as a company's internal codes.</li>
+</ul>
+
+<p><b>You decide</b></p>
+<ul>
+<li>Review every item one by one, zoomed in, and cover it or keep it visible.</li>
+<li>Cover by hand with the lasso, a rectangle or a brush. Cover a whole page.</li>
+<li>Four styles: black, pixelate, blur, or label (a black box that says what was there, such as [NAME]).</li>
+<li>Undo and redo every step. Edit the covers again later.</li>
+</ul>
+
+<p><b>Erased for real</b></p>
+<ul>
+<li>PDF pages with covers are rebuilt, so the hidden text no longer exists in the file.</li>
+<li>Word, Excel, PowerPoint and LibreOffice files keep their format, with the covered text replaced.</li>
+<li>Hidden data is removed: author, comments, tracked changes, GPS location and camera details.</li>
+<li>The clean copy is read again to check nothing covered can still be found.</li>
+</ul>
+
+<p>Opens PDF, DOCX, XLSX, PPTX, ODT, ODS, ODP, TXT, CSV, MD and photos (JPEG, PNG, WebP, HEIC, AVIF, GIF, BMP). Free and open source, no ads, no account.</p>

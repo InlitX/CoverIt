@@ -47,12 +47,16 @@ object Phones {
         ),
     )
 
+    private val yearReference = Regex("""(19|20)\d{2}[-/.]\d+""")
+
     fun byNumberingPlan(text: String, region: String): List<Hit> =
         runCatching { util.findNumbers(text, region, PhoneNumberUtil.Leniency.VALID, Long.MAX_VALUE).toList() }
             .getOrDefault(emptyList())
-            .map { m ->
+            .mapNotNull { m ->
                 val raw = m.rawString()
                 val international = raw.startsWith("+") || raw.startsWith("00")
-                Hit(Around.trim(text, m.start() until m.end()), international || labelled(text, m.start()))
+                val covered = international || labelled(text, m.start())
+                if (!covered && yearReference.matches(raw)) null
+                else Hit(Around.trim(text, m.start() until m.end()), covered)
             }
 }

@@ -1,0 +1,121 @@
+name: Build & Release
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag / version, e.g. v1.0.0'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build:
+    name: Build split APKs
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Test
+        run: ./gradlew testDebugUnitTest
+
+      - name: Build split APKs
+        run: ./gradlew :app:assembleRelease
+
+      - name: Rename APKs
+        run: |
+          cd app/build/outputs/apk/release
+          mv app-arm64-v8a-release.apk     CoverIt-arm64-v8a.apk
+          mv app-armeabi-v7a-release.apk   CoverIt-armeabi-v7a.apk
+          mv app-x86_64-release.apk        CoverIt-x86_64.apk
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverit-apks
+          path: app/build/outputs/apk/release/CoverIt-*.apk
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Test
+        run: ./gradlew testDebugUnitTest
+
+      - name: Set up signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > coverit.jks
+          cat > keystore.properties <<EOF
+          storeFile=../coverit.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+
+      - name: Build split APKs
+        run: ./gradlew :app:assembleRelease
+
+      - name: Check there is no INTERNET permission
+        run: |
+          AAPT2=$(ls $ANDROID_HOME/build-tools/*/aapt2 | tail -n 1)
+          for apk in app/build/outputs/apk/release/*.apk; do
+            if "$AAPT2" dump permissions "$apk" | grep -q "android.permission.INTERNET"; then
+              echo "INTERNET permission found in $apk"
+              exit 1
+            fi
+          done
+
+      - name: Rename APKs
+        run: |
+          cd app/build/outputs/apk/release
+          mv app-arm64-v8a-release.apk     CoverIt-arm64-v8a.apk
+          mv app-armeabi-v7a-release.apk   CoverIt-armeabi-v7a.apk
+          mv app-x86_64-release.apk        CoverIt-x86_64.apk
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          name: ${{ inputs.tag }}
+          generate_release_notes: true
+          files: |
+            app/build/outputs/apk/release/CoverIt-arm64-v8a.apk
+            app/build/outputs/apk/release/CoverIt-armeabi-v7a.apk
+            app/build/outputs/apk/release/CoverIt-x86_64.apk
